@@ -5,26 +5,22 @@ const userSchema = new Schema({
         type:String,
         required: true,
         thoughts: [{type: Schema.Types.ObjectId,
-            ref: 'thoughts'}]
+            ref: 'thoughts'}],
+        trim: true
     },
     email: {
         type: String,
         required: true,
         unique: true,
-        validate: 
-            [/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/, "Please enter valid e-mail."]
+        validate: [/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/, "Please enter valid e-mail."]
     },
-    // array of _id values referencing the Thought model
     thoughts: [{
         type: Schema.Types.ObjectId,
         ref: 'thoughts',
-        required: true
     }],
-    // array of _id values referencing the Friends model
     friends: [{
         type: Schema.Types.ObjectId,
         ref: 'friends',
-        required: true
     }],
     toJSON: {
       virtuals: true,
@@ -36,7 +32,7 @@ const userSchema = new Schema({
 userSchema
   .virtual('friendCount')
   .get(function () {
-    return `${this.friends}`;
+    return `${this.friends.length}`;
   })
 
 const User = model('user', userSchema);

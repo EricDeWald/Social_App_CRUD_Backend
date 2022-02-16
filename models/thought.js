@@ -1,5 +1,7 @@
 const { Schema, model } = require('mongoose');
 const formatter = require("../utils/dateformat.js")
+const reactionSchema = require("./reaction.js")
+
 const thoughtSchema = new Schema({
     thoughtText: {
         type: String,
@@ -17,11 +19,7 @@ const thoughtSchema = new Schema({
         ref: 'user',
         required: true
     },
-    reactions:[{
-        type: Schema.Types.ObjectId,
-        ref: 'reaction',
-        required: true
-    }]
+    reactions:[reactionSchema]
 },
 {
     toJSON: {
@@ -30,10 +28,10 @@ const thoughtSchema = new Schema({
     id: false,
     }
 )
-//Create a virtual called reactionCount that retrieves the length of the thought's reactions array field on query.
+
 thoughtSchema
   .virtual('reactionCount')
-  .get(function () {
+  .get(function() {
     return `${this.reactions.length}`;
   })
 

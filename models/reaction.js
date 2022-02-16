@@ -1,7 +1,6 @@
-const { Schema, model } = require('mongoose');
+const { Schema} = require('mongoose');
 
 const reactionSchema = new Schema({
-
     reactionID: {
         type: Schema.Types.ObjectId,
         default: () => new Types.ObjectId(),
@@ -19,11 +18,9 @@ const reactionSchema = new Schema({
     },
     createdAt:{
         type: Date,
-        default: Date.now
-        //Use a getter method to format the timestamp on query
-        //GET FUCTION TO CHANGE TO BETTER FORMAT
+        default: Date.now,
+        get:(createdTimeStamp) => formatter(createdTimeStamp)
     }
-
 },
 {
     toJSON: {
@@ -32,5 +29,4 @@ const reactionSchema = new Schema({
     id: false,
     }
 )
-const Reaction = model('reaction', reactionSchema);
-module.exports = Reaction;
+module.exports = reactionSchema;
