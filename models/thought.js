@@ -1,5 +1,5 @@
 const { Schema, model } = require('mongoose');
-
+const formatter = require("../utils/dateformat.js")
 const thoughtSchema = new Schema({
     thoughtText: {
         type: String,
@@ -9,14 +9,13 @@ const thoughtSchema = new Schema({
     },
     createdAt:{
         type: Date,
-        default: Date.now
-        //GET FUNCTION TO CHANGE TO BETTER FORMAT
+        default: Date.now,
+        get:(createdTimeStamp) => formatter(createdTimeStamp)
     },
     userName:{
-        // some how this needs to referece the user that made this entry
-        // type: Schema.Types.ObjectId,
-        // ref: 'user',
-        // required: true
+        type: Schema.Types.ObjectId,
+        ref: 'user',
+        required: true
     },
     reactions:[{
         type: Schema.Types.ObjectId,
