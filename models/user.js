@@ -4,27 +4,23 @@ const userSchema = new Schema({
     userName: { 
         type:String,
         required: true,
-        thoughts: [{type: Schema.Types.ObjectId,ref: 'thoughts'}]
+        thoughts: [{type: Schema.Types.ObjectId,
+            ref: 'thoughts'}]
     },
     email: {
         type: String,
         required: true,
         unique: true,
-        validate: {
-            // not sure how to use this regex here or how to impliment as custom validation function
-            // regular expression: `/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/`
-        }
-
+        validate: 
+            [/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/, "Please enter valid e-mail."]
     },
     // array of _id values referencing the Thought model
-    // not sure that this is currently an array
     thoughts: [{
         type: Schema.Types.ObjectId,
         ref: 'thoughts',
         required: true
     }],
     // array of _id values referencing the Friends model
-    // not sure that this is currently an array
     friends: [{
         type: Schema.Types.ObjectId,
         ref: 'friends',
