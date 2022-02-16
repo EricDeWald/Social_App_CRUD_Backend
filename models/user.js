@@ -11,6 +11,7 @@ const userSchema = new Schema({
         required: true,
         unique: true,
         validate: {
+            // not sure how to use this regex here or how to impliment as custom validation function
             // regular expression: `/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/`
         }
 
@@ -41,12 +42,6 @@ userSchema
   .get(function () {
     return `${this.friends}`;
   })
-//   not sure wheather or not i need this
-//   .set(function (v) {
-//     const first = v.split(' ')[0];
-//     const last = v.split(' ')[1];
-//     this.set({ first, last });
-//   });
 
 const User = model('user', userSchema);
 
