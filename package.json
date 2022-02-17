@@ -23,7 +23,7 @@
     "encodeurl": "^1.0.2",
     "escape-html": "^1.0.3",
     "etag": "^1.8.1",
-    "express": "^4.17.2",
+    "express": "^4.17.3",
     "finalhandler": "^1.1.2",
     "forwarded": "^0.2.0",
     "fresh": "^0.5.2",
@@ -44,7 +44,7 @@
     "moment": "^2.29.1",
     "mongodb": "^4.3.1",
     "mongodb-connection-string-url": "^2.4.2",
-    "mongoose": "^6.2.1",
+    "mongoose": "^6.2.2",
     "mpath": "^0.8.4",
     "mquery": "^4.0.2",
     "ms": "^2.0.0",
@@ -84,6 +84,7 @@
     "type": "git",
     "url": "git+https://github.com/EricDeWald/Social_App.git"
   },
+  "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {

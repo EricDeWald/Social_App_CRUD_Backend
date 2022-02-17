@@ -26,7 +26,7 @@ const thoughtSchema = new Schema({
         getters: true,
     },
     id: false,
-    }
+}
 )
 
 thoughtSchema
