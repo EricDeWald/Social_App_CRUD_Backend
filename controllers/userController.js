@@ -8,7 +8,7 @@ async function getAllUsers(req, res) {
 }
 // GET a single user by its _id and populated thought and friend data
 async function getOneUser(req, res){
-    const userdata = await User.findOne({ _id: req.params.studentId });
+    const userdata = await User.findOne({ _id: req.params.userId });
     res.json(userdata);
 }
 
@@ -25,12 +25,12 @@ async function createNewUser(req,res){
 
 // PUT to update a user by its _id
 async function updateUserData(req,res){
-    const updateUser = await User.findOneAndUpdate({ _id: req.params.courseId })
+    const updateUser = await User.findOneAndUpdate({ _id: req.params.userId })
     res.json(updateUser);
 }
 // // DELETE to remove user by its _id
 async function deleteUserData(req,res){
-    const deleteUser = await User.findOneAndDelete({ _id: req.params.courseId });
+    const deleteUser = await User.findOneAndDelete({ _id: req.params.userId });
     res.json(deleteUser);
 }
 // BONUS: Remove a user's associated thoughts when deleted.
