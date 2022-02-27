@@ -1,4 +1,4 @@
-const { User, Thought } = require('../models');
+const { User, Thought, Reaction } = require('../models');
 
 // sort on the get all thoughts
 
@@ -55,15 +55,27 @@ async function deleteThoughtData(req,res){
 // ---
 
 // **`/api/thoughts/:thoughtId/reactions`**
-
+async function getReactions(req,res){
+    const reactionData = await Thought.findById({_id: req.params.reactionId},{ $in: thought.reactions})
+    res.json(reactionData);
+}
 // * `POST` to create a reaction stored in a single thought's `reactions` array field
-
+async function createReaction(req,res){
+    const createdReaction = await Reaction.create({_id: req.params.thoughtId},{$addToSet: {reactions: req.params.reactionId}})
+    res.json(createdReaction)
+}
 // * `DELETE` to pull and remove a reaction by the reaction's `reactionId` value
-
+async function deleteReactionData(req,res){
+    const deleteReaction = await Thoughts.findOneAndUpdate({_id: req.params.thoughtId},{$pull: { reaction: {reactionId: req.params.reactionId}}})
+    res.json(deleteReaction);
+}
 module.exports = {
     getAllthoughts,
     getOneThought,
     createthought,
     updateThoughtData,
-    deleteThoughtData
+    deleteThoughtData,
+    getReactions,
+    createReaction,
+    deleteReactionData
 }

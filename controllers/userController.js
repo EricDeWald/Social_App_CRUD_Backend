@@ -42,12 +42,13 @@ async function updateUserData(req,res){
 // // DELETE to remove user by its _id
 async function deleteUserData(req,res){
     const deleteUser = await User.findOneAndDelete({ _id: req.params.userId });
-   
+    // Remove a user's associated thoughts when deleted.
+    // delete many find user id to delete the thoughts with that user id
+    const deleteThought = await Thought.deleteMany(
+        { _id: { $in: user.thoughts }}
+        );
+    res.json(deleteUser);
 }
-// BONUS: Remove a user's associated thoughts when deleted.
-// delete many find user id to delete the thoughts with that user id
-const deleteThought = await Thought.deleteMany({ _id: deleteUser});
-res.json(deleteUser);
 
 ///api/users/:userId/friends/:friendId
 
