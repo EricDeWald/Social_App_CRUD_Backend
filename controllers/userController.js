@@ -79,7 +79,7 @@ async function removeFriendData(req,res){
     res.json(updateUser);
     }
 
-    module.exports = {
+module.exports = {
     getAllUsers,
     getOneUser,
     createNewUser,

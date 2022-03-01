@@ -4,12 +4,14 @@ const {
     getOneUser,
     createNewUser,
     updateUserData,
-    deleteUserData
+    deleteUserData,
+    removeFriendData,
+    addFriendData,
     
 }= require('../../controllers/userController.js')
 // /api/users
 
-router.route('/')
+router.route('/api/users')
 // GET all users
     .get(getAllUsers)
     // POST a new user:
@@ -30,10 +32,13 @@ router.route('/:userId')
 // BONUS: Remove a user's associated thoughts when deleted.
 
 // /api/users/:userId/friends/:friendId
-
+router.route('/:userId/friends/:friendId')
 
 // POST to add a new friend to a user's friend list
+    .post(addFriendData)
+    // example: pass valid user id and friend id in the url
 
 // DELETE to remove a friend from a user's friend list
-
+    .delete(removeFriendData)
+    // example: pass valid user id and friend id in the url
 module.exports = router;

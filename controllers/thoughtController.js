@@ -1,4 +1,4 @@
-const { User, Thought, Reaction } = require('../models');
+const { User, Thought } = require('../models');
 
 // sort on the get all thoughts
 
@@ -7,8 +7,6 @@ const { User, Thought, Reaction } = require('../models');
 // if i can figure out delete thought you can figure out the pull off the user you can do the same with the user delete thoughts
 
 // reactions controllers are like the friend updates
-
-
 
 // * `GET` to get all thoughts
 async function getAllthoughts(req, res) {
@@ -30,8 +28,8 @@ async function getOneThought(req, res){
 // * `POST` to create a new thought (don't forget to push the created thought's `_id` to the associated user's `thoughts` array field)
 async function createthought(req,res){
     const createdthought = await Thought.create(req.body);
-    const updateUser = await User.findOneAndUpdate({ _id: req.params.userId },{$set:createdthought},{runValidators: true, new: true})
-    res.json(updateUser);
+    const updateUser = await User.findOneAndUpdate({ _id:createdthought.userId },{$push:{ thoughts: createdthought._id}},{runValidators: true, new: true})
+    res.json('Thought Updated.');
 }
 // ```json
 // // example data
@@ -46,11 +44,21 @@ async function createthought(req,res){
 async function updateThoughtData(req,res){
     const updateThought = await Thought.findOneAndUpdate({ _id: req.params.thoughtId },{$set:req.body},{runValidators: true, new: true})
     res.json(updateThought);
+    // ```json
+    // in the route pass valid thought id in url
+// // example data
+// {
+//   "thoughtText": "Here's a cool thought...",
+// }
+// ```
 }
+
 // * `DELETE` to remove a thought by its `_id`
+
 async function deleteThoughtData(req,res){
     const deleteThought = await Thought.findOneAndDelete({ _id: req.params.thoughtId });
-    res.json(deleteThought);
+    const removeThought = await User.findOneAndUpdate({ thoughts: req.params.thoughtId})
+    res.json('Thought is gone.');
 }
 // ---
 
@@ -61,12 +69,17 @@ async function getReactions(req,res){
 }
 // * `POST` to create a reaction stored in a single thought's `reactions` array field
 async function createReaction(req,res){
-    const createdReaction = await Reaction.create({_id: req.params.thoughtId},{$addToSet: {reactions: req.params.reactionId}})
-    res.json(createdReaction)
+    const createdReaction = await Thought.updateOne({ _id: req.params.thoughtId },{$addToSet: {reactions: req.body}},{runValidators: true, new: true});
+    
+    res.json("created reaction")
 }
+
+    //    "reactionBody": "some text"
+    //    "userName": "some string"
+    //
 // * `DELETE` to pull and remove a reaction by the reaction's `reactionId` value
 async function deleteReactionData(req,res){
-    const deleteReaction = await Thoughts.findOneAndUpdate({_id: req.params.thoughtId},{$pull: { reaction: {reactionId: req.params.reactionId}}})
+    const deleteReaction = await Thought.findOneAndUpdate({_id: req.params.thoughtId},{$pull: { reaction: {reactionId: req.params.reactionId}}})
     res.json(deleteReaction);
 }
 module.exports = {
