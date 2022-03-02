@@ -15,8 +15,6 @@ const {
 router.route('/')
 // GET to get all thoughts
     .get(getAllthoughts)
-// GET to get a single thought by its _id
-    .get(getOneThought)
 // POST to create a new thought
     .post(createthought)
 // // example data
@@ -27,6 +25,8 @@ router.route('/')
 // }
 
 router.route('/:thoughtId')
+// GET to get a single thought by its _id
+    .get(getOneThought)
 // PUT to update a thought by its _id
     .put(updateThoughtData)
 // DELETE to remove a thought by its _id
@@ -34,7 +34,7 @@ router.route('/:thoughtId')
 
 // /api/thoughts/:thoughtId/reactions
 
-router.route('/:thougthId/reactions')
+router.route('/:thoughtId/reactions')
 // POST to create a reaction stored in a single thought's reactions array field
     .post(createReaction)
 // DELETE to pull and remove a reaction by the reaction's reactionId value

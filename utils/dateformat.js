@@ -1,5 +1,5 @@
 const moment = require("moment");
-function formatDate(date){
+const formatDate = (date)=>{
     return moment(date).format('LLLL');
 }
-module.exports = formatDate()
+module.exports = {formatDate};

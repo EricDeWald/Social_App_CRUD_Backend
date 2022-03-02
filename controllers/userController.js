@@ -44,7 +44,8 @@ async function deleteUserData(req,res){
     // Remove a user's associated thoughts when deleted.
     // delete many find user id to delete the thoughts with that user id
     const deleteThought = await Thought.deleteMany(
-        { _id: { $in: user.thoughts }}
+        { _id: req.params.userId},
+        { $in: user.thoughts }
         );
         res.json(deleteUser);
     }
