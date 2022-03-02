@@ -33,9 +33,9 @@ async function updateUserData(req,res){
         )
     res.json(updateUser);
 }
-// example data
-// {
-//   "username": "lernantino",
+// data needs to be unique to data set. 
+// { 
+//   "userName": "lernantino",
 //   "email": "lernantino@gmail.com"
 // }
 // // DELETE to remove user by its _id
@@ -46,15 +46,10 @@ async function deleteUserData(req,res){
     const deleteThought = await Thought.deleteMany(
         { _id: { $in: user.thoughts }}
         );
-    res.json(deleteUser);
-}
+        res.json(deleteUser);
+    }
+
 ///api/users/:userId/friends/:friendId
-async function getFriendData(req,res){
-    const friendData = await User.findById(
-        {friends: req.params.friendId}
-        )
-    res.json(friendData)
-}
 
 // POST to add a new friend to a user's friend list
 async function addFriendData(req,res){
@@ -63,15 +58,9 @@ async function addFriendData(req,res){
         {$addToSet: { friends: req.params.friendId}},
         { runValidators: true, new: true }
     )
-
     res.json(updateUser);
 }
-    // example data
-// {
-//   "username": "lernantino",
-//   "friend": "lernantino@gmail.com"
-// }
-
+// example data needs to have: valid user id /friends/ valid user id
 
 // DELETE to remove a friend from a user's friend list
 async function removeFriendData(req,res){
@@ -80,10 +69,10 @@ async function removeFriendData(req,res){
         {$pull: { friends: req.params.friendId}},
         { runValidators: true, new: true }
     )
-
     res.json(updateUser);
-    }
 
+    }
+// example data needs to have: valid user id /friends/ valid user id
 module.exports = {
     getAllUsers,
     getOneUser,
@@ -92,5 +81,4 @@ module.exports = {
     deleteUserData,
     removeFriendData,
     addFriendData,
-    getFriendData
     }
