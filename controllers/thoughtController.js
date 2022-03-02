@@ -1,11 +1,8 @@
 const { User, Thought } = require('../models');
 
 // sort on the get all thoughts
-
 // create a thought then update it on a user under one route
-
 // if i can figure out delete thought you can figure out the pull off the user you can do the same with the user delete thoughts
-
 // reactions controllers are like the friend updates
 
 // * `GET` to get all thoughts
@@ -16,27 +13,23 @@ async function getAllthoughts(req, res) {
 }
 // * `GET` to get a single thought by its `_id`
 async function getOneThought(req, res){
-    try {
         const thoughtdata = await Thought.findOne({ _id: req.params.thoughtId })
         .select('-__v')
-        res.json(thoughtdata);
-    } catch (error) {
-        res.status(500).json(err)
+        res.json(thoughtdata);    
     }
-}
 
 // * `POST` to create a new thought (don't forget to push the created thought's `_id` to the associated user's `thoughts` array field)
 async function createthought(req,res){
     const createdthought = await Thought.create(req.body);
     const updateUser = await User.findOneAndUpdate({ _id:createdthought.userId },{$push:{ thoughts: createdthought._id}},{runValidators: true, new: true})
-    res.json('Thought Updated.');
+    res.json('Thought created.');
 }
 // ```json
 // // example data
 // {
 //   "thoughtText": "Here's a cool thought...",
-//   "username": "lernantino",
-//   "userId": "5edff358a0fcb779aa7b118b"
+//   "userName": "lernantino",
+//   "userId": "620dbf9dc5705429eddb8a3d"
 // }
 // ```
 

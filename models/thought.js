@@ -7,7 +7,8 @@ const thoughtSchema = new Schema({
         type: String,
         required: true,
         minlength: 1,
-        maxlength: 280
+        maxlength: 280,
+        default: " ",
     },
     createdAt:{
         type: Date,
@@ -15,8 +16,7 @@ const thoughtSchema = new Schema({
         get:(createdTimeStamp) => formatter(createdTimeStamp)
     },
     userName:{
-        type: Schema.Types.ObjectId,
-        ref: 'user',
+        type: String,
         required: true
     },
     reactions:[reactionSchema]

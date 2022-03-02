@@ -11,7 +11,7 @@ const {
 }= require('../../controllers/thoughtController.js')
 
 // /api/thoughts
-router.route('/api/thoughts')
+router.route('/')
 // GET to get all thoughts
     .get(getAllthoughts)
 // GET to get a single thought by its _id

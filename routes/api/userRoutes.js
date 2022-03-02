@@ -11,7 +11,7 @@ const {
 }= require('../../controllers/userController.js')
 // /api/users
 
-router.route('/api/users')
+router.route('/')
 // GET all users
     .get(getAllUsers)
     // POST a new user:
