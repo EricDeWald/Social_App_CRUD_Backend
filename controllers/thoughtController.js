@@ -12,7 +12,8 @@ async function getAllthoughts(req, res) {
 }
 // * `GET` to get a single thought by its `_id`
 async function getOneThought(req, res) {
-    const thoughtdata = await Thought.findById({_id: req.body.thoughtId})
+    // console.log(req.params)
+    const thoughtdata = await Thought.findOne({_id: req.params.thoughtId})
     .select('-__v');
     res.json(thoughtdata);
 }
@@ -42,14 +43,13 @@ async function updateThoughtData(req,res){
         {$set:req.body},
         {runValidators: true, new: true})
     res.json(updateThought);
-    // ```json
-    // in the route pass valid thought id in url
+}
+// in the route pass valid thought id in url
 // // example data
 // {
 //   "thoughtText": "Here's a cool thought...",
 // }
 // ```
-}
 
 // * `DELETE` to remove a thought by its `_id`
 
@@ -70,13 +70,13 @@ async function getReactions(req,res){
 }
 // * `POST` to create a reaction stored in a single thought's `reactions` array field
 async function createReaction(req,res){
-    const createdReaction = await Thought.updateOne(
+    const createdReaction = await Thought.findOneAndUpdate(
         { _id: req.params.thoughtId },
-        {$addToSet: {reactions: req.body}},
+        {$addToSet: {reactions: req.params.thoughtId}},
         {runValidators: true, new: true}
         );
     
-    res.json("created reaction")
+    res.json(createdReaction)
 }
 
     //    "reactionBody": "some text"
