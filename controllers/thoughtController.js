@@ -70,13 +70,14 @@ async function getReactions(req,res){
 }
 // * `POST` to create a reaction stored in a single thought's `reactions` array field
 async function createReaction(req,res){
+    console.log(req.body);
     const createdReaction = await Thought.findOneAndUpdate(
         { _id: req.params.thoughtId },
-        {$addToSet: {reactions: req.params.thoughtId}},
+        { $addToSet: {reactions: req.body} },
         {runValidators: true, new: true}
         );
     
-    res.json(createdReaction)
+    res.json("created Reaction")
 }
 
     //    "reactionBody": "some text"
@@ -86,7 +87,7 @@ async function createReaction(req,res){
 async function deleteReactionData(req,res){
     const deleteReaction = await Thought.findOneAndUpdate(
         {_id: req.params.thoughtId},
-        {$pull: { reaction: {reactionId: req.params.reactionId}}}
+        {$pull: {reactionId: req.params.reactionId}}
         );
 
     res.json(deleteReaction);
