@@ -15,6 +15,7 @@ This project is designed with mongoose express and moments npm packages to creat
 ## Installation
 
 You will need the folloing installed in your terminal: npm i will install all the packages that you need to run this.
+Start the server by using 'nodemon index.js'
 
 ## Usage
 
@@ -22,7 +23,7 @@ This will be designed to be a full CRUD backend and allow for additional "though
 
 ## Demo
 
-https://drive.google.com/file/d/1llAWTmXZA_uv6iNYIrKXBzaUSYOlF29B/view
+https://drive.google.com/file/d/16SzZMPSqQyUyVmBUifJd5IhO6PIZYkVK/view
 
 ## How to Contribute
 
